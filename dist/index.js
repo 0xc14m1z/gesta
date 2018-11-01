@@ -8,6 +8,10 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 module.exports = function () {
   // map that holds handlers for application events
   var handlers = {}; // allow the user to add handlers
@@ -20,14 +24,18 @@ module.exports = function () {
 
   var register = function register(event) {
     return function (socket) {
+      for (var _len = arguments.length, additionalParameters = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        additionalParameters[_key - 1] = arguments[_key];
+      }
+
       // make the actual call to an handler
       var handle = function handle(action) {
         return function (handler) {
-          return handler({
+          return handler(_objectSpread({
             action: action,
             dispatch: dispatch,
             broadcast: broadcast
-          });
+          }, additionalParameters));
         };
       }; // dispatch an action locally
 
