@@ -9,11 +9,11 @@ module.exports = () => {
   }
 
   // enhance the socket client listening for events
-  const register = event => socket => {
+  const register = event => (socket, ...additionalParameters) => {
 
     // make the actual call to an handler
     const handle = action => handler =>
-      handler({ action, dispatch, broadcast })
+      handler({ action, dispatch, broadcast, ...additionalParameters })
 
     // dispatch an action locally
     const localDispatch = action => {

@@ -16,8 +16,6 @@ $ npm install --save gesta
 
 ## how to use it
 
-WIP
-
 ```js
 // handler.js
 
@@ -56,7 +54,7 @@ require('./handlePing')
 const socket = require('socket.io').listen(process.env.PORT)
 
 socket.on('connection', client => {
-  register('SOCKET_EVENT')(client)
+  register('SOCKET_EVENT')(client)()
 })
 ```
 
