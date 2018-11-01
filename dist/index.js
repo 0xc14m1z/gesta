@@ -24,9 +24,7 @@ module.exports = function () {
 
   var register = function register(event) {
     return function (socket) {
-      for (var _len = arguments.length, additionalParameters = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        additionalParameters[_key - 1] = arguments[_key];
-      }
+      var additionalParameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       // make the actual call to an handler
       var handle = function handle(action) {
